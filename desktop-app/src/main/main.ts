@@ -146,6 +146,11 @@ const createWindow = async () => {
   initHttpBasicAuthHandlers(mainWindow);
   const webPermissionHandlers = WebPermissionHandlers(mainWindow);
 
+  const hideMenuBar = store.get('ui.hideMenuBar') as boolean;
+  if (hideMenuBar) {
+    mainWindow.setMenu(null);
+  }
+
   // Add BROWSER_SYNC_HOST to the allowed Content-Security-Policy origins
   mainWindow.webContents.session.webRequest.onHeadersReceived(
     async (details, callback) => {
